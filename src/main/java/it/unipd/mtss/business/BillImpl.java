@@ -60,20 +60,27 @@ public class BillImpl implements Bill{
                     MouseOTastieraMenoCosto = item;
                 }
             }
+        }
 
-            if (processori > 5) {
-                total -= ProcessoreMenoCostoso.getPrice() * 0.5;
-            }
-            
-            if (mouse > 10) {
-                total -= MouseMenoCostoso.getPrice() * 1;
-            }
-
-            if (tastiere == mouse && tastiere != 0){
-                total -= MouseOTastieraMenoCosto.getPrice() * 1;
-            }
+        //Se ho più di 5 processori il meno caro riceve uno sconto del 50%
+        if (processori > 5) {
+            total -= ProcessoreMenoCostoso.getPrice() * 0.5;
         }
         
+        //Se ordino più di 10 mouse il meno caro viene regalato
+        if (mouse > 10) {
+            total -= MouseMenoCostoso.getPrice() * 1;
+        }
+
+        //Se il numero di tastiere è uguale a quello dei mouse il meno caro viene regalato
+        if (tastiere == mouse && tastiere != 0){
+            total -= MouseOTastieraMenoCosto.getPrice() * 1;
+        }
+
+        //Sconto del 10% se il totale supera i 1000 euro
+        if(total > 1000){
+            total -= total * 0.1;
+        }
         return total;
     }
 }
