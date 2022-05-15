@@ -36,11 +36,11 @@ public class BillImplTest {
         
         itemsOrdered.add(new EItem( ItemType.Processor, "Pintel e700",110.00));
         itemsOrdered.add(new EItem( ItemType.Motherboard, "Azuz Pro", 60.00));
-        itemsOrdered.add(new EItem( ItemType.Mouse, "Fazer Neo", 30.00));
+        itemsOrdered.add(new EItem( ItemType.Mouse, "Fazer Neo", 5.00));
         itemsOrdered.add(new EItem( ItemType.Mouse, "Fazer Neo", 30.00)); // aggiungo altro mouse per non interferire con il test di MouseUgualiTastiere
         itemsOrdered.add(new EItem( ItemType.Keyboard, "Drevo Key", 45.00));
         
-        assertEquals(275, testBill.getOrderPrice(itemsOrdered,user), 0.0);
+        assertEquals(250, testBill.getOrderPrice(itemsOrdered,user), 0.0);
     }
     
     @Test(expected=BillException.class)
@@ -68,21 +68,21 @@ public class BillImplTest {
     public void testTotaleConScontoSulMenoCaroSePiùDiDieciMouse() {
         
         for(int i=0; i<11; i++) {
-            itemsOrdered.add(new EItem( ItemType.Mouse, "Fazer Neo",30.00));
+            itemsOrdered.add(new EItem( ItemType.Mouse, "Fazer Neo",5.00));
         }       
-        assertEquals(300.00, testBill.getOrderPrice(itemsOrdered,user), 0.0);
+        assertEquals(50.00, testBill.getOrderPrice(itemsOrdered,user), 0.0);
     }
 
     @Test
     public void testTotaleConScontoSulMenoCaroSeNumeroTastiereUgualeNumeroMouse() {
         
         for(int i=0; i<3; i++) {
-            itemsOrdered.add(new EItem( ItemType.Mouse, "Fazer Neo",30.00));
+            itemsOrdered.add(new EItem( ItemType.Mouse, "Fazer Neo",5.00));
         }       
         for(int i=0; i<3; i++) {
             itemsOrdered.add(new EItem( ItemType.Keyboard, "Drevo Key",45.00));
         }
-        assertEquals(195.00, testBill.getOrderPrice(itemsOrdered,user), 0.0);
+        assertEquals(145.00, testBill.getOrderPrice(itemsOrdered,user), 0.0);
     }
 
     @Test
@@ -94,12 +94,18 @@ public class BillImplTest {
     }
 
     @Test(expected=BillException.class)
-    public void oltreTrentaElementiPerOrdineTest() {
+    public void testOltreTrentaElementiPerOrdine() {
         
         for(int i=0; i<32; i++) {
             itemsOrdered.add(new EItem( ItemType.Motherboard, "Azuz Pro",60.00));
         }
         
         testBill.getOrderPrice(itemsOrdered, user);
+    }
+
+    @Test
+    public void testCommissione2EuroSeInferiore10Euro(){
+        itemsOrdered.add(new EItem( ItemType.Mouse, "Fazer Neo",5.00)); 
+        assertEquals(7.00, testBill.getOrderPrice(itemsOrdered,user), 0.0);
     }
 }

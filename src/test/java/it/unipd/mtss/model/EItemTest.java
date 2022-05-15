@@ -20,7 +20,7 @@ public class EItemTest {
     public void setup() {
         Processor = new EItem( ItemType.Processor, "Pintel e700",110.00);
         Motherboard = new EItem(ItemType.Motherboard, "Azuz Pro", 60.00);
-        Mouse = new EItem( ItemType.Mouse, "Fazer Neo", 30.00);
+        Mouse = new EItem( ItemType.Mouse, "Fazer Neo", 5.00); //cambiato prezzo del mouse
         Keyboard = new EItem( ItemType.Keyboard, "Drevo Key", 45.00);
     }
 
@@ -51,7 +51,7 @@ public class EItemTest {
     public void testGetPrice() {
         assertEquals(110.00, Processor.getPrice(), 0.0);
         assertEquals(60.00, Motherboard.getPrice(), 0.0);
-        assertEquals(30.00, Mouse.getPrice(), 0.0);
+        assertEquals(5.00, Mouse.getPrice(), 0.0);
         assertEquals(45.00, Keyboard.getPrice(), 0.0);
     }
 
