@@ -16,7 +16,9 @@ public class BillImpl implements Bill{
     public double getOrderPrice(List<EItem> itemsOrdered, User user) throws BillException {
         double total = 0;
         int processori = 0;
-        EItem ProcessoreMenoCostoso=null; 
+        int mouse = 0;
+        EItem ProcessoreMenoCostoso=null;
+        EItem MouseMenoCostoso=null; 
         if(itemsOrdered == null) {
             throw new BillException("Lista nulla");
         }
@@ -34,9 +36,22 @@ public class BillImpl implements Bill{
                     ProcessoreMenoCostoso = item;
                 }
             }
+            if (item.getType() == ItemType.Mouse) {
+                mouse++;
+
+                if ((MouseMenoCostoso == null) || (MouseMenoCostoso.getPrice() > item.getPrice())) {
+                    MouseMenoCostoso = item;
+                }
+            }
+
             if (processori > 5) {
                 total -= ProcessoreMenoCostoso.getPrice() * 0.5;
             }
+            
+            if (mouse > 10) {
+                total -= MouseMenoCostoso.getPrice() * 1;
+            }
+
         }
         
         return total;
