@@ -30,6 +30,11 @@ public class BillImpl implements Bill{
         if(itemsOrdered.isEmpty()) {
             throw new BillException("Lista ordini vuota");
         }
+
+        //se l'ordinazione ha più di 30 elementi allora errore
+        if(itemsOrdered.size() > 30) {
+            throw new BillException("Limite ordine superato");
+        }
         
         for (EItem item : itemsOrdered) {
             total += item.getPrice();   
