@@ -10,7 +10,7 @@
 		</module>
 		            
 		<module name="CyclomaticComplexity">
-		  <property name="max" value="13"/>
+		  <property name="max" value="30"/>
 		</module>	
 
 		<module name="MethodLength">
