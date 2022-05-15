@@ -1,6 +1,5 @@
 package it.unipd.mtss.business;
 
-import it.unipd.mtss.business.BillImpl;
 import it.unipd.mtss.business.exception.BillException;
 import it.unipd.mtss.model.ItemType;
 import it.unipd.mtss.model.EItem;
@@ -49,6 +48,15 @@ public class BillImplTest {
     public void testCalcoloDelTotaleConListaOrdiniNulla() {
         itemsOrdered = null;
         testBill.getOrderPrice(itemsOrdered, user);
+    }
+
+    @Test
+    public void testTotaleConScontoSulMenoCaroSePiùDiCinqueProcessori() {
+        
+        for(int i=0; i<6; i++) {
+            itemsOrdered.add(new EItem( ItemType.Processor, "Pintel e700",110.00));
+        }       
+        assertEquals(605.00, testBill.getOrderPrice(itemsOrdered,user), 0.0);
     }
     
 }
