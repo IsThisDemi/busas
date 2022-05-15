@@ -15,7 +15,7 @@
 
 		<module name="MethodLength">
 		  <property name="tokens" value="METHOD_DEF"/>
-		  <property name="max" value="60"/>
+		  <property name="max" value="160"/>
 		  <property name="countEmpty" value="false"/>
 		</module>	
 
