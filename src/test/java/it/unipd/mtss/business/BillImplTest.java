@@ -1,3 +1,7 @@
+////////////////////////////////////////////////////////////////////
+// [RICCARDO] [MARTINELLO] [2009086]
+// [SAMUELE] [RIZZATO] [1226307]
+////////////////////////////////////////////////////////////////////
 package it.unipd.mtss.business;
 
 import it.unipd.mtss.business.exception.BillException;
@@ -33,9 +37,10 @@ public class BillImplTest {
         itemsOrdered.add(new EItem( ItemType.Processor, "Pintel e700",110.00));
         itemsOrdered.add(new EItem( ItemType.Motherboard, "Azuz Pro", 60.00));
         itemsOrdered.add(new EItem( ItemType.Mouse, "Fazer Neo", 30.00));
+        itemsOrdered.add(new EItem( ItemType.Mouse, "Fazer Neo", 30.00)); // aggiungo altro mouse per non interferire con il test di MouseUgualiTastiere
         itemsOrdered.add(new EItem( ItemType.Keyboard, "Drevo Key", 45.00));
         
-        assertEquals(245, testBill.getOrderPrice(itemsOrdered,user), 0.0);
+        assertEquals(275, testBill.getOrderPrice(itemsOrdered,user), 0.0);
     }
     
     @Test(expected=BillException.class)
@@ -66,5 +71,17 @@ public class BillImplTest {
             itemsOrdered.add(new EItem( ItemType.Mouse, "Fazer Neo",30.00));
         }       
         assertEquals(300.00, testBill.getOrderPrice(itemsOrdered,user), 0.0);
+    }
+
+    @Test
+    public void testTotaleConScontoSulMenoCaroSeNumeroTastiereUgualeNumeroMouse() {
+        
+        for(int i=0; i<3; i++) {
+            itemsOrdered.add(new EItem( ItemType.Mouse, "Fazer Neo",30.00));
+        }       
+        for(int i=0; i<3; i++) {
+            itemsOrdered.add(new EItem( ItemType.Keyboard, "Drevo Key",45.00));
+        }
+        assertEquals(195.00, testBill.getOrderPrice(itemsOrdered,user), 0.0);
     }
 }
